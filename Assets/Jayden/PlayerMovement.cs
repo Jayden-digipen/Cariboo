@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform playerCapsule;
     public float movementSpeed;
 
-    public Transform orientation;
+    public Transform orientationPlayerCameraDirection;
     Transform playerTransform;
 
     float horizontalInput;
@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    [SerializeField] Vector3 velocityCheck;
 
     
 
@@ -29,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        playerCapsule.transform.rotation = orientation.transform.rotation;
+        playerCapsule.transform.rotation = orientationPlayerCameraDirection.transform.rotation;
         MyInput();
         SpeedControl();
     }
@@ -48,13 +50,14 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
        
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientationPlayerCameraDirection.forward * verticalInput + orientationPlayerCameraDirection.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * movementSpeed * 4f, ForceMode.Force);
     }
 
     private void SpeedControl()
     {
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        velocityCheck = flatVelocity;
         
         if (flatVelocity.magnitude > movementSpeed)
         {
