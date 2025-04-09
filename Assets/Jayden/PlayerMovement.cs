@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
             state = MovementState.running;
             currentSpeed = runningSpeed;
+
             Stamina -= StaminaDecreaser;
             staminaUI.StaminaBar.fillAmount = Stamina / 100;
             restartCountdown = true;
@@ -119,17 +120,15 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
+            state = MovementState.walking;
+            currentSpeed = walkingSpeed;
+
             if (restartCountdown)
             {
                 staminaUI.staminaCountdown = originalCountdown;
                 restartCountdown = false;
             }
-                
-           
-
-            state = MovementState.walking;
-            currentSpeed = walkingSpeed;
-
+     
             if (Stamina <= 100)
             {
                 staminaUI.staminaCountdown -= Time.deltaTime;
