@@ -7,32 +7,43 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Scripts")]
     StaminaUI staminaUI;
+
+    [Header("Player Transforms")]
     [SerializeField] Transform playerCapsule;
-    
-    [SerializeField] private float currentSpeed = 4.5f;
+    Transform playerTransform;
+
+    [Header("Speed of the player")]
+    [SerializeField] private float currentSpeed;
     public float walkingSpeed = 4.5f;
     public float runningSpeed = 10f;
-
-
+    public float crouchSpeed = 3f;
+    public float crouchYScale;
+    private float crouchYStart;
     [SerializeField] private float currentAccelerator = 5f;
-    public KeyCode sprintKey = KeyCode.LeftShift;
 
+    [Header("Keybinds")]
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
+
+    [Header("Stamina")]
     [SerializeField] private float Stamina = 100f;
     [SerializeField] private float StaminaDecreaser = 1f;
     [SerializeField] private float StaminaIncreaser = 0.2f;
-    private float staminaCountdown = 20;
-    
+    float originalCountdown;
+    bool isStillRunning = false;
+    bool restartCountdown = false;
 
+
+    [Header("Other")]
     public Transform orientationPlayerCameraDirection;
-    Transform playerTransform;
-
     float horizontalInput;
     float verticalInput;
-
     Vector3 moveDirection;
-
     Rigidbody rb;
+
+
 
     
 
@@ -40,11 +51,16 @@ public class PlayerMovement : MonoBehaviour
     public enum MovementState
     {
         walking,
-        running
+        running,
+        crouch
+        
     }
 
     private void Start()
-    {      
+    {
+        crouchYStart = transform.localScale.y;
+        staminaUI = FindObjectOfType<StaminaUI>();
+        originalCountdown = staminaUI.staminaCountdown;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
@@ -69,33 +85,65 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYStart, transform.localScale.z);
+        }
     }
 
     private void StateHandler()
     {
-         
-        if (Input.GetKey(sprintKey) & Stamina > 0 & staminaCountdown <= 0)
+
+        if (Input.GetKey(crouchKey))
         {
+            state = MovementState.crouch;
+            currentSpeed = crouchSpeed;
+        }
+
+        if (Input.GetKey(sprintKey) & Stamina > 0)
+        {
+
             state = MovementState.running;
             currentSpeed = runningSpeed;
-            staminaCountdown = 20f;
             Stamina -= StaminaDecreaser;
-            staminaUI.StaminaBar.fillAmount = Stamina/100;
+            staminaUI.StaminaBar.fillAmount = Stamina / 100;
+            restartCountdown = true;
 
         }
 
         else
         {
+            if (restartCountdown)
+            {
+                staminaUI.staminaCountdown = originalCountdown;
+                restartCountdown = false;
+            }
+                
+           
+
             state = MovementState.walking;
             currentSpeed = walkingSpeed;
-            staminaCountdown -= Time.deltaTime;
-            
-            if(Stamina <= 100)
+
+            if (Stamina <= 100)
             {
-                Stamina += StaminaIncreaser;
+                staminaUI.staminaCountdown -= Time.deltaTime;
+                if (staminaUI.staminaCountdown <= 0)
+                {
+                    Stamina += StaminaIncreaser;
+                }
             }
-            staminaUI.StaminaBar.fillAmount = Stamina/100;
+
+            staminaUI.StaminaBar.fillAmount = Stamina / 100;
         }
+
+
+
     }
 
 
