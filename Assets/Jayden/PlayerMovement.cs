@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StaminaDecreaser = 1f;
     [SerializeField] private float StaminaIncreaser = 0.2f;
     float originalCountdown;
-    bool isStillRunning = false;
     bool restartCountdown = false;
 
 
@@ -42,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
     Vector3 moveDirection;
     Rigidbody rb;
+    bool grounded = true;
 
 
 
@@ -52,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         running,
-        crouch
+        crouch,
+        air
         
     }
 
@@ -69,8 +70,9 @@ public class PlayerMovement : MonoBehaviour
     {
         playerCapsule.transform.rotation = orientationPlayerCameraDirection.transform.rotation;
         MyInput();
-        WalkingRunning();
         StateHandler();
+        WalkingRunning();
+        
        
     }
 
@@ -102,11 +104,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(crouchKey))
         {
+            
             state = MovementState.crouch;
             currentSpeed = crouchSpeed;
         }
 
-        if (Input.GetKey(sprintKey) & Stamina > 0)
+        else if (Input.GetKey(sprintKey) & Stamina > 0)
         {
 
             state = MovementState.running;
@@ -118,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        else
+        else if(grounded)
         {
             state = MovementState.walking;
             currentSpeed = walkingSpeed;
@@ -139,6 +142,11 @@ public class PlayerMovement : MonoBehaviour
             }
 
             staminaUI.StaminaBar.fillAmount = Stamina / 100;
+        }
+
+        else
+        {
+            state = MovementState.air;
         }
 
 
