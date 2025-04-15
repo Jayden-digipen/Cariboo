@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
     private void WalkingRunning()
     {
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        Debug.Log(flatVelocity.magnitude);
+     
         
         if (flatVelocity.magnitude >= currentSpeed)
         {
