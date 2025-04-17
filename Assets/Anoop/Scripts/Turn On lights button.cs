@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,17 @@ public class TurnOnlightsbutton : MonoBehaviour
         myLight = GetComponent<Light>();
     }
 
-    // Update is called once per frame
-    void Update()
+  
+    public void TurnOnLight()
     {
-        if (Input.GetKeyDown(KeyCode.E) && hasBeenPressed == false)
+
+        if (!hasBeenPressed)
         {
             myLight.intensity = Mathf.PingPong(Time.time, lightIntensityMultiplier);
             hasBeenPressed = true;
-        } 
+        }
+          
+        
+          
     }
 }
