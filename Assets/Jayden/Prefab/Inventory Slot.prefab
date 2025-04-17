@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4724675213009218853}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -114,3 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48257953d9be234691c62a435e89064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 6363843771808672689}
+  selectedColor: {r: 0, g: 1, b: 0.2313726, a: 0.7294118}
+  notselectedColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,16 +8,17 @@ using UnityEngine.Tilemaps;
 public class Item : ScriptableObject
 {
     [Header("Gameplay")]
-    public TileBase tile;
+    public GameObject Game;
     public ItemType type;
     public ActionType action;
     public Vector2Int range = new Vector2Int(5, 4);
 
     [Header("UI")]
     public bool stackable = true;
-   
+
 
     [Header("Both")]
+    public string itemName;
     public Sprite image;
 }
 
