@@ -6,17 +6,26 @@ public class EnemyMovement : MonoBehaviour
 {
     public float speed = 3f;
 
-    public Transform target;
+    [SerializeField] GameObject player;
+    Transform playerTranform;
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();  
+        playerTranform = player.GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+       
+        if(player.CompareTag("Player"))
+        {
+            transform.position = Vector3.MoveTowards(transform.position, playerTranform.position, speed * Time.deltaTime);
+        }
+            
+        
+ 
+       
     }
 
    

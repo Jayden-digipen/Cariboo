@@ -8,10 +8,10 @@ using UnityEngine.Tilemaps;
 public class Item : ScriptableObject
 {
     [Header("Gameplay")]
-    public GameObject Game;
+   
     public ItemType type;
     public ActionType action;
-    public Vector2Int range = new Vector2Int(5, 4);
+   
 
     [Header("UI")]
     public bool stackable = true;
@@ -29,7 +29,8 @@ public enum ItemType
     Notes,
     Keys,
     Medicine,
-    Stamina
+    Stamina,
+    Concealment
 
 }
 

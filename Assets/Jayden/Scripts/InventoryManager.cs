@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public int maxStackedItems = 4;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
-    int selectedSlot = -1;
+    public int selectedSlot = -1;
 
 
     private void Awake()
@@ -67,6 +67,8 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+
+    //in the inventory
     void SpawnNewItem(Item item, InventorySlot slot)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
@@ -78,25 +80,25 @@ public class InventoryManager : MonoBehaviour
     {
         InventorySlot slot = inventorySlots[selectedSlot];
         DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
+
         if (itemInSlot != null)
         {
-            Item item = itemInSlot.item;
+            Item item = itemInSlot.item;            
             if (use == true)
             {
                 itemInSlot.count--;
                 if (itemInSlot.count <= 0)
                 {
-                    Debug.Log("type sjhi");
                     Destroy(itemInSlot.gameObject);
                 }
                 else
-                {
-                    
+                {                  
                     itemInSlot.RefreshCount();
                 }
 
-                return item;
+               
             }
+            return item;
         }
 
 

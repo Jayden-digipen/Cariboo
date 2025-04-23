@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a33cdf18d8bc42247a954518ce566a2b, type: 3}
-  m_Name: Cpncealment
+  m_Name: Concealment
   m_EditorClassIdentifier: 
-  Game: {fileID: 0}
-  type: 0
+  type: 5
   action: 0
-  range: {x: 5, y: 4}
-  stackable: 1
-  itemName: 
-  image: {fileID: 0}
+  stackable: 0
+  itemName: Concealment
+  image: {fileID: 21300000, guid: 85ee18a6f1dab6a4b866d6d83c7f53d5, type: 3}
