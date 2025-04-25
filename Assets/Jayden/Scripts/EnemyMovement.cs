@@ -1,32 +1,135 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 3f;
+    [SerializeField] int subtractHealth = 1;
+    public NavMeshAgent agent;
+    public Transform player;
+    public LayerMask isGrounded, isPlayer;
 
-    [SerializeField] GameObject player;
-    Transform playerTranform;
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerTranform = player.GetComponent<Transform>();
-    }
+    //Scripts
+    PlayerHealth playerHealth;
 
-    // Update is called once per frame
-    void Update()
+    //Patrol
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
+    //Attack
+    public float timeBetweenAttacks;
+    bool alreadyAttacked;
+
+    //States
+    public float sightRange, attackRange;
+    public bool playerSightRange, playerAttackRange;
+
+    private void Awake()
     {
-       
-        if(player.CompareTag("Player"))
-        {
-            transform.position = Vector3.MoveTowards(transform.position, playerTranform.position, speed * Time.deltaTime);
-        }
-            
         
- 
-       
+        player = GameObject.Find("Player").transform;
+        agent = GetComponent<NavMeshAgent>();
+
     }
 
-   
+    private void Update()
+    {
+        playerSightRange = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+        playerAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
+
+        if(!playerSightRange && !playerAttackRange)
+        {
+            Patroling();
+        }
+
+        if(playerSightRange && !playerAttackRange)
+        {
+            ChasePlayer();
+        }
+
+        if(playerSightRange & playerAttackRange)
+        {
+            AttackPlayer();
+        }
+    }
+
+    
+
+    private void Patroling()
+    {
+        if (!walkPointSet)
+        {
+            SearchWalkPoint();
+        }
+
+        if (walkPointSet)
+        {
+            agent.SetDestination(walkPoint);
+        }
+
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        //walkpoint reached
+        if(distanceToWalkPoint.magnitude < 1f)
+        {
+            //search new walkPoint
+            walkPointSet = false;
+        }
+    }
+
+    private void SearchWalkPoint()
+    {
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+        if(Physics.Raycast(walkPoint, - transform.up, 2f, isGrounded))
+        {
+            walkPointSet = true;
+        }
+    }
+
+    private void ChasePlayer()
+    {
+        agent.SetDestination(player.position);
+    }
+
+    private void AttackPlayer()
+    {
+        agent.SetDestination(transform.position);
+
+        transform.LookAt(player);
+
+        if (!alreadyAttacked)
+        {
+            //Attack code here, implement later when there is a health script
+            agent.SetDestination(transform.position);
+            playerHealth = FindObjectOfType<PlayerHealth>();
+            playerHealth.TakeDamage(subtractHealth);
+
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+    }
+
+    private void ResetAttack()
+    {
+        alreadyAttacked = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+
 }
