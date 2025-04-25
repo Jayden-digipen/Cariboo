@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Anoop/Scenes/Cutscene Scene.unity
+    guid: f91c849184cf73d41b6367792fe7b31b
+  - enabled: 1
+    path: Assets/Anoop/Scenes/Horror Game.unity
+    guid: 1ef25a4bc8a0de94ab4371076ee23f84
+  - enabled: 1
+    path: Assets/Anoop/Scenes/CutScene2.unity
+    guid: 30bfcaddb4c77794581d7554de59140d
   m_configObjects: {}
