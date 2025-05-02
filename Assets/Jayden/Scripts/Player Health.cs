@@ -6,24 +6,22 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    int startingHealth = 5;
-    [SerializeField] int currentHealth;
+    [SerializeField] private float startingHealth = 5;
+    public float currentHealth { get; private set; }
 
-    public Image [] hearts;
+ 
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        currentHealth = startingHealth;  
+        currentHealth = startingHealth;
+        
     }
-
-    
 
     public void TakeDamage(int damage)
     {
         if(currentHealth > 0)
         {
-           
             currentHealth -= damage;
         }
       

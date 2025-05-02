@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1260497918432685223}
   - component: {fileID: 7705868951797209322}
   - component: {fileID: 2444154651275894632}
-  - component: {fileID: 5752172483009123293}
+  - component: {fileID: 9029191067510985495}
+  - component: {fileID: 7594750888380009135}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1260497918432685223
 MeshFilter:
@@ -107,8 +108,30 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &5752172483009123293
+  m_Center: {x: 0.000000059604645, y: 0.07, z: -0.00000008940697}
+--- !u!195 &9029191067510985495
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6198664671373511036}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.01
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7594750888380009135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,5 +143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1744c506ca0625544989d41c014e9623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  subtractHealth: 1
+  agent: {fileID: 9029191067510985495}
   player: {fileID: 0}
+  isGrounded:
+    serializedVersion: 2
+    m_Bits: 64
+  isPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 5
+  timeBetweenAttacks: 1
+  sightRange: 20
+  attackRange: 3
+  playerSightRange: 1
+  playerAttackRange: 0

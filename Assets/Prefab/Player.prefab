@@ -214,9 +214,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCapsule: {fileID: 1086262635946571626}
-  movementSpeed: 4.5
-  orientation: {fileID: 549303815110603858}
-  velocityCheck: {x: 0, y: 0, z: 0}
+  currentSpeed: 0
+  walkingSpeed: 4.5
+  runningSpeed: 10
+  crouchSpeed: 3
+  crouchYScale: 0
+  currentAccelerator: 5
+  sprintKey: 304
+  crouchKey: 306
+  Stamina: 100
+  StaminaDecreaser: 1
+  StaminaIncreaser: 0.2
+  orientationPlayerCameraDirection: {fileID: 0}
+  state: 0
 --- !u!1 &8491456441660260126
 GameObject:
   m_ObjectHideFlags: 0

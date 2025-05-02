@@ -47,12 +47,12 @@ public class EnemyMovement : MonoBehaviour
             Patroling();
         }
 
-        if(playerSightRange && !playerAttackRange)
+        if(playerSightRange && !playerAttackRange && player.CompareTag("Player") == true)
         {
             ChasePlayer();
         }
 
-        if(playerSightRange & playerAttackRange)
+        if(playerSightRange & playerAttackRange && player.CompareTag("Player") == true)
         {
             AttackPlayer();
         }
