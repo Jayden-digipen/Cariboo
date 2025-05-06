@@ -9,6 +9,7 @@ public class Keypad : MonoBehaviour
 
     public GameObject player;
     public GameObject playerCamera;
+    public GameObject playerCamerabob;
     public GameObject keypad;
     public GameObject hud;
     public GameObject inv;
@@ -64,15 +65,18 @@ public class Keypad : MonoBehaviour
         keypad.SetActive(false);
         inv.SetActive(true);
         hud.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         player.GetComponent<PlayerMovement>().enabled = true;
         playerCamera.GetComponent<PlayerCamera>().enabled = true;
+        playerCamerabob.GetComponent<Headbob>().enabled = true;
     }
 
     public void Update()
     {
         if(textObject.text == "Right" && animate)
         {
-            animator.SetBool("Locker Opens", true);
+            animator.SetBool("LockerOpen", true);
             Debug.Log("OPenm");
         }
 
@@ -82,6 +86,7 @@ public class Keypad : MonoBehaviour
             inv.SetActive(false);
             player.GetComponent<PlayerMovement>().enabled = false;
             playerCamera.GetComponent<PlayerCamera>().enabled = false;
+            playerCamerabob.GetComponent<Headbob>().enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549303815110603858}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player Camera Direction
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 616989471765116212}
   - component: {fileID: 987848923538544793}
   - component: {fileID: 8961554426466034332}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3456491537948432501}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -122,7 +122,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3456491537948432501}
-  m_Material: {fileID: 13400000, guid: e5187afd0aeafab43900cb7895dcbaa5, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -149,9 +149,10 @@ GameObject:
   - component: {fileID: 8032008971051036549}
   - component: {fileID: 3603404405244129213}
   - component: {fileID: 5868735637609340920}
-  m_Layer: 0
+  - component: {fileID: 3508686477082857204}
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +164,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7150152464055094869}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -215,18 +216,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCapsule: {fileID: 1086262635946571626}
   currentSpeed: 0
-  walkingSpeed: 4.5
-  runningSpeed: 10
+  walkingSpeed: 3.5
+  runningSpeed: 8
   crouchSpeed: 3
-  crouchYScale: 0
-  currentAccelerator: 5
+  crouchYScale: 0.5
+  currentAccelerator: 4
   sprintKey: 304
   crouchKey: 306
   Stamina: 100
-  StaminaDecreaser: 1
-  StaminaIncreaser: 0.2
-  orientationPlayerCameraDirection: {fileID: 0}
+  StaminaDecreaser: 0.07
+  StaminaIncreaser: 0.015
+  orientationPlayerCameraDirection: {fileID: 549303815110603858}
   state: 0
+--- !u!114 &3508686477082857204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7150152464055094869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49dc96a6e850f34b87cd272687c454f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 5
 --- !u!1 &8491456441660260126
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,9 +250,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6829151353834661340}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player Camera Position
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

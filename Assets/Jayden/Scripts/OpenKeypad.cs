@@ -16,7 +16,7 @@ public class OpenKeypad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Reach")
+        if(other.gameObject.tag == "Player")
         {
             inReach = true;
             keypadText.SetActive(true);
@@ -25,7 +25,7 @@ public class OpenKeypad : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Reach")
+        if (other.gameObject.tag == "Player")
         {
             inReach = false;
             keypadText.SetActive(false);
