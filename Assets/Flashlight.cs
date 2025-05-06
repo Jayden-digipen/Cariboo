@@ -8,6 +8,7 @@ public class Flashlight : MonoBehaviour
     private bool flashlightActive = false;
 
 
+    [SerializeField] AudioClip FlashlightOn;
     private void Start()
     {
         flashLightLight.gameObject.SetActive(false);
@@ -17,15 +18,19 @@ public class Flashlight : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            AudioSource.PlayClipAtPoint(FlashlightOn, Camera.main.transform.position);
+            
             if (flashlightActive == false)
             {
                 flashLightLight.gameObject.SetActive(true);
                 flashlightActive = true;
+                
             }
             else
             {
                 flashLightLight.gameObject.SetActive(false);
                 flashlightActive = false;
+                
             }
         }
     }

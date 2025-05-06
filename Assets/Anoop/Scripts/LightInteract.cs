@@ -9,6 +9,8 @@ public class LightInteract : MonoBehaviour
     TurnOnlightsbutton turnOnlightsbutton;
     public TurnOnlightsbutton[] lights;
 
+    public AudioClip lightBuzzSound;
+    public AudioSource audioSource;
     private void Start()
     {
         interactText.enabled = false;
@@ -22,6 +24,7 @@ public class LightInteract : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
+           audioSource.PlayOneShot(lightBuzzSound);        
            foreach(TurnOnlightsbutton light in lights)
             {
                 light.TurnOnLight();

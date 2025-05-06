@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     bool grounded = true;
 
 
-
+   [SerializeField] AudioSource FootstepAudioSource;
     
 
     public MovementState state;
@@ -68,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
         playerCapsule.transform.rotation = orientationPlayerCameraDirection.transform.rotation;
         MyInput();
         StateHandler();
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
             state = MovementState.running;
             currentSpeed = runningSpeed;
-
+           
             Stamina -= StaminaDecreaser;
             staminaUI.StaminaBar.fillAmount = Stamina / 100;
             restartCountdown = true;
@@ -123,8 +124,13 @@ public class PlayerMovement : MonoBehaviour
 
         else if(grounded)
         {
+            
             state = MovementState.walking;
             currentSpeed = walkingSpeed;
+            FootstepAudioSource.Play();
+
+
+
 
             if (restartCountdown)
             {
