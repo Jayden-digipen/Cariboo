@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FlashlightCanvas : MonoBehaviour
 {
+
+    
     public GameObject flashlightCanvas;
     // Start is called before the first frame update
     void Start()
@@ -18,5 +20,13 @@ public class FlashlightCanvas : MonoBehaviour
         {
             flashlightCanvas.SetActive(false);
         }
+
+        
+
+
+        
     }
+
+  
+   
 }

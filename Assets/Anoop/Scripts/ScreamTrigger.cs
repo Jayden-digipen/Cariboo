@@ -15,7 +15,7 @@ public class ScreamTriggers : MonoBehaviour
 
     IEnumerator ScreamEffect()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(30);
         AudioSource.PlayClipAtPoint(screamSoundSource, Camera.main.transform.position);
     }
     // Update is called once per frame

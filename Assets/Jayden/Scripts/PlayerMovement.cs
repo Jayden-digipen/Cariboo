@@ -43,9 +43,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     bool grounded = true;
 
-
+    [SerializeField] AudioSource walkingAudioSource;
    [SerializeField] AudioSource FootstepAudioSource;
-    
+   [SerializeField] GameObject turnOnLightCanvas; 
 
     public MovementState state;
     public enum MovementState
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         StateHandler();
         WalkingRunning();
-        
+
        
     }
 
@@ -114,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             state = MovementState.running;
+           
             currentSpeed = runningSpeed;
            
             Stamina -= StaminaDecreaser;
@@ -179,6 +180,17 @@ public class PlayerMovement : MonoBehaviour
         }        
     }
 
-   
-   
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Object"))
+        {
+            StartCoroutine(LightTurnOn());
+        }
+    }
+    IEnumerator LightTurnOn()
+    {
+        turnOnLightCanvas.SetActive(true);
+        yield return new WaitForSeconds(4);
+        turnOnLightCanvas.SetActive(false);
+    }
 }

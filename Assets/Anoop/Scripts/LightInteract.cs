@@ -8,7 +8,7 @@ public class LightInteract : MonoBehaviour
     [SerializeField] TextMeshPro interactText;
     TurnOnlightsbutton turnOnlightsbutton;
     public TurnOnlightsbutton[] lights;
-
+    bool pressed = false;
     public AudioClip lightBuzzSound;
     public AudioSource audioSource;
     private void Start()
@@ -22,12 +22,14 @@ public class LightInteract : MonoBehaviour
 
         interactText.enabled = true;
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && pressed == false)
         {
-           audioSource.PlayOneShot(lightBuzzSound);        
+           audioSource.PlayOneShot(lightBuzzSound);
+           
            foreach(TurnOnlightsbutton light in lights)
             {
                 light.TurnOnLight();
+                pressed = true;
             }
             
         }
