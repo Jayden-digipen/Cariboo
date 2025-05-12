@@ -13,6 +13,7 @@ public class Keypad : MonoBehaviour
     public GameObject keypad;
     public GameObject hud;
     public GameObject inv;
+    public GameObject crosshair;
 
     public GameObject animateObject;
     public Animator animator;
@@ -65,6 +66,7 @@ public class Keypad : MonoBehaviour
         keypad.SetActive(false);
         inv.SetActive(true);
         hud.SetActive(true);
+        crosshair.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         player.GetComponent<PlayerMovement>().enabled = true;
@@ -76,7 +78,7 @@ public class Keypad : MonoBehaviour
     {
         if(textObject.text == "Right" && animate)
         {
-            animator.SetBool("DoorOpen", true);
+            animator.Play("DoorOpen", 0, 0.0f);
             Debug.Log("OPenm");
         }
 
@@ -84,6 +86,7 @@ public class Keypad : MonoBehaviour
         {
             hud.SetActive(false);
             inv.SetActive(false);
+            crosshair.SetActive(false);
             player.GetComponent<PlayerMovement>().enabled = false;
             playerCamera.GetComponent<PlayerCamera>().enabled = false;
             playerCamerabob.GetComponent<Headbob>().enabled = false;

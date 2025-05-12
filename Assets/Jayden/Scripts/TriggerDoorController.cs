@@ -96,7 +96,7 @@ public class TriggerDoorController : MonoBehaviour
         {           
             textOpen.text = "";
             textClose.text = "";
-            inTrigger = true;
+            inTrigger = false;
               
                       
         }

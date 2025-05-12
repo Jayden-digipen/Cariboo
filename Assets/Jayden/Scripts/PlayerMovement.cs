@@ -185,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Object"))
         {
             StartCoroutine(LightTurnOn());
+           
         }
     }
     IEnumerator LightTurnOn()
