@@ -76,7 +76,7 @@ public class Keypad : MonoBehaviour
     {
         if(textObject.text == "Right" && animate)
         {
-            animator.SetBool("LockerOpen", true);
+            animator.SetBool("DoorOpen", true);
             Debug.Log("OPenm");
         }
 
