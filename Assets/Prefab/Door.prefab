@@ -100,7 +100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E to Open
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ac1c34b00440df4a9bc2f4e07717071, type: 2}
   m_sharedMaterial: {fileID: 8128375451605750528, guid: 4ac1c34b00440df4a9bc2f4e07717071, type: 2}
@@ -565,7 +565,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.2, y: 6.1, z: 2.5}
-  m_Center: {x: -0.1, y: 0.38, z: -1}
+  m_Center: {x: -0.1, y: 0.38, z: 1.22}
 --- !u!1 &2997892733363377163
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,13 +881,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b34aa484f7faf44e9c7965e8085b5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorTrigger: {fileID: 1208682802445775537}
   myDoor: {fileID: 3418232240648949917}
-  inTrigger: 1
-  doorIsOpen: 0
   textOpen: {fileID: 7084051334731619449}
   textClose: {fileID: 8069231407071351427}
   doorOpen: DoorOpen
   doorClose: DoorClose
+  timer: 1
 --- !u!1 &4593421910017899953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E to Close
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ac1c34b00440df4a9bc2f4e07717071, type: 2}
   m_sharedMaterial: {fileID: 8128375451605750528, guid: 4ac1c34b00440df4a9bc2f4e07717071, type: 2}
@@ -1421,7 +1421,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8071841495220622437}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.78, y: 3.13, z: -5.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1433,5 +1433,5 @@ Transform:
   - {fileID: 4493336232235978780}
   - {fileID: 6949007202660787268}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
