@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] AudioSource walkingAudioSource;
    [SerializeField] AudioSource FootstepAudioSource;
-   [SerializeField] GameObject turnOnLightCanvas; 
+   
 
     public MovementState state;
     public enum MovementState
@@ -180,18 +180,6 @@ public class PlayerMovement : MonoBehaviour
         }        
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Object"))
-        {
-            StartCoroutine(LightTurnOn());
-           
-        }
-    }
-    IEnumerator LightTurnOn()
-    {
-        turnOnLightCanvas.SetActive(true);
-        yield return new WaitForSeconds(4);
-        turnOnLightCanvas.SetActive(false);
-    }
+    
+    
 }
