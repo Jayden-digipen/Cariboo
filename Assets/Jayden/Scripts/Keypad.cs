@@ -6,7 +6,7 @@ using TMPro;
 
 public class Keypad : MonoBehaviour
 {
-    [SerializeField] AudioSource FootstepAudioSource;
+
     public GameObject player;
     public GameObject playerCamera;
     public GameObject playerCamerabob;
@@ -87,7 +87,6 @@ public class Keypad : MonoBehaviour
             hud.SetActive(false);
             inv.SetActive(false);
             crosshair.SetActive(false);
-            FootstepAudioSource.Stop();
             player.GetComponent<PlayerMovement>().enabled = false;
             playerCamera.GetComponent<PlayerCamera>().enabled = false;
             playerCamerabob.GetComponent<Headbob>().enabled = false;
