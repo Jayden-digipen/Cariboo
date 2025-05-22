@@ -1,15 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using System.Threading;
+using UnityEngine;
 
-public class TriggerDoorController : MonoBehaviour
+public class TriggerDoorControllerForLockedDoor : MonoBehaviour
 {
-    static TriggerDoorController activeDoor; //  active once at a time
+    static TriggerDoorControllerForLockedDoor activeDoor; //  active once at a time
     [SerializeField] GameObject doorTrigger;
-   
+    [SerializeField] GameObject doorController;
 
     [SerializeField] private Animator myDoor;
     [SerializeField] private TextMeshPro textOpen;
@@ -22,23 +20,30 @@ public class TriggerDoorController : MonoBehaviour
 
     private bool doorIsOpen = false;
     bool isInteracting = false;
-    
+
 
 
     private void Start()
     {
-      
+        StartCoroutine(CountdownDisable());
+        
     }
     private void Update()
     {
         timer = Mathf.Clamp(timer, 0f, 1f);
 
-        
+
 
         if (activeDoor == this && Input.GetKeyDown(KeyCode.E) && !isInteracting)
         {
             StartCoroutine(Countdown());
         }
+    }
+
+    IEnumerator CountdownDisable()
+    {
+        yield return new WaitForSeconds(timer);
+        doorController.SetActive(false);
     }
 
     IEnumerator Countdown()
@@ -55,14 +60,14 @@ public class TriggerDoorController : MonoBehaviour
         if (!doorIsOpen)
         {
             myDoor.Play(doorOpen, 0, 0.0f);
-            
+
             doorIsOpen = true;
-            
+
         }
         else
         {
             myDoor.Play(doorClose, 0, 0.0f);
-           
+
             doorIsOpen = false;
         }
     }
@@ -73,13 +78,13 @@ public class TriggerDoorController : MonoBehaviour
         {
             activeDoor = this;
 
-          
+
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-       bool hasCrossedDoor = doorTrigger.GetComponent<DoorCrossCheck>().hasWalkedThroughDoor;
+        bool hasCrossedDoor = doorTrigger.GetComponent<DoorCrossCheck>().hasWalkedThroughDoor;
 
         if (!doorIsOpen && !hasCrossedDoor)
         {
@@ -125,3 +130,6 @@ public class TriggerDoorController : MonoBehaviour
         }
     }
 }
+
+    
+

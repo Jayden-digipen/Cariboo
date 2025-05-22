@@ -25,9 +25,11 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _BUILTIN_QueueControl: 0
     - _RotateTX: 90
-    - _TileScale: 7.58
-    m_Colors: []
+    - _TileScale: 4.45
+    m_Colors:
+    - _TileXY: {r: 0.52, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2612411355016915953
 MonoBehaviour:

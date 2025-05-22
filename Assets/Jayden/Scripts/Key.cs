@@ -17,10 +17,10 @@ public class Key : MonoBehaviour
     }
     void Update()
     {
-        GetSelectedItem();
+        GetSelectedItemKey();
     }
 
-    private void GetSelectedItem()
+    public void GetSelectedItemKey()
     {
         if ((InventoryManager.instance != null && InventoryManager.instance.selectedSlot != -1))
         {
@@ -29,12 +29,6 @@ public class Key : MonoBehaviour
             if (item != null && item.type == ItemType.Keys)
             {
                 InventoryManager.instance.GetSelectedItem(true);
-                
-
-
-               
-               
-
             }
 
 
