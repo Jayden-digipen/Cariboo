@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class Key : MonoBehaviour
 {
+    [SerializeField] private KeyInventory _keyInventory = null;
     [SerializeField] float concealmentTime = 10;
-    [SerializeField] GameObject player;
+    [SerializeField] TriggerDoorControllerForLockedDoor triggerDoorControllerForLocked;
+
     Item item;
     InventoryManager inventoryManager;
+    
     float imageShower;
+    
 
     private void Start()
     {
@@ -28,7 +32,17 @@ public class Key : MonoBehaviour
 
             if (item != null && item.type == ItemType.Keys)
             {
-                InventoryManager.instance.GetSelectedItem(true);
+                _keyInventory.hasRedKey = true;
+
+                if (triggerDoorControllerForLocked.openedRedDoor)
+                {
+                    InventoryManager.instance.GetSelectedItem(true);
+                }
+            }
+
+            if(item != null && item.type != ItemType.Keys)
+            {
+                _keyInventory.hasRedKey = false;
             }
 
 
