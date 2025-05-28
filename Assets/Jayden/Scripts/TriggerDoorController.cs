@@ -9,11 +9,11 @@ public class TriggerDoorController : MonoBehaviour
 {
     static TriggerDoorController activeDoor; //  active once at a time
     [SerializeField] GameObject doorTrigger;
+    [SerializeField] GameObject interactText;
    
 
     [SerializeField] private Animator myDoor;
-    [SerializeField] private TextMeshPro textOpen;
-    [SerializeField] private TextMeshPro textClose;
+  
 
     [SerializeField] private string doorOpen = "DoorOpen";
     [SerializeField] private string doorClose = "DoorClose";
@@ -27,7 +27,7 @@ public class TriggerDoorController : MonoBehaviour
 
     private void Start()
     {
-      
+        interactText.SetActive(false);
     }
     private void Update()
     {
@@ -35,7 +35,7 @@ public class TriggerDoorController : MonoBehaviour
 
         
 
-        if (activeDoor == this && Input.GetKeyDown(KeyCode.E) && !isInteracting)
+        if (activeDoor == this && Input.GetKeyDown(KeyCode.Q) && !isInteracting)
         {
             StartCoroutine(Countdown());
         }
@@ -79,48 +79,14 @@ public class TriggerDoorController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-       bool hasCrossedDoor = doorTrigger.GetComponent<DoorCrossCheck>().hasWalkedThroughDoor;
-
-        if (!doorIsOpen && !hasCrossedDoor)
-        {
-            textOpen.text = "E to interact";
-            textClose.text = "";
-            Debug.Log("1");
-        }
-
-
-        else if (doorIsOpen && hasCrossedDoor)
-        {
-            textClose.text = "E to interact";
-            textOpen.text = "";
-            Debug.Log("2");
-
-
-        }
-
-        else if (doorIsOpen && !hasCrossedDoor)
-        {
-
-            textOpen.text = "E to interact";
-            textClose.text = "";
-            Debug.Log("3");
-
-        }
-
-        else
-        {
-            textClose.text = "E to interact";
-            textOpen.text = "";
-            Debug.Log("4");
-        }
+        interactText.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") && activeDoor == this)
         {
-            textOpen.text = "";
-            textClose.text = "";
+            interactText.SetActive(false);
             activeDoor = null;
         }
     }

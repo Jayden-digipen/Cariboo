@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Key : MonoBehaviour
 {
     [SerializeField] private KeyInventory _keyInventory = null;
-    [SerializeField] float concealmentTime = 10;
     [SerializeField] TriggerDoorControllerForLockedDoor triggerDoorControllerForLocked;
 
     Item item;
@@ -36,14 +35,17 @@ public class Key : MonoBehaviour
 
                 if (triggerDoorControllerForLocked.openedRedDoor)
                 {
+                    _keyInventory.hasRedKey = true;
                     InventoryManager.instance.GetSelectedItem(true);
                 }
+               
             }
 
-            if(item != null && item.type != ItemType.Keys)
+            else if (!triggerDoorControllerForLocked.openedRedDoor)
             {
                 _keyInventory.hasRedKey = false;
             }
+
 
 
         }
