@@ -16,7 +16,7 @@ public class KeyRaycast : MonoBehaviour
     private bool isCrosshairActive;
     private bool doOnce;
 
-    private string interactableTag = "InteractableObject";
+    private string interactableTag = "InteractiveObject";
 
     private void Update()
     {
@@ -40,6 +40,7 @@ public class KeyRaycast : MonoBehaviour
 
                 if (Input.GetKeyDown(openDoorKey))
                 {
+                    Debug.Log("Work");
                     raycastedObject.ObjectInteraction();
                 }
             }

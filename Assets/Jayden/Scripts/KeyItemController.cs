@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class KeyItemController : MonoBehaviour
 {
-    [SerializeField] TriggerDoorControllerForLockedDoor doorController;
+    
     [SerializeField] private bool redDoor = false;
-    [SerializeField] private bool redKey = false;
+   
 
     [SerializeField] private KeyInventory _keyInventory = null;
     Key key;
 
-    private KeyDoorController doorObject;
+    private TriggerDoorControllerForLockedDoor doorObject;
 
     private void Start()
     {
+        
         if (redDoor)
         {
-            doorObject = GetComponent<KeyDoorController>();
+           doorObject = GetComponent<TriggerDoorControllerForLockedDoor>();
         }
         
     }
@@ -26,12 +27,10 @@ public class KeyItemController : MonoBehaviour
     {
         if (redDoor)
         {
-            doorController.enabled = true;
+            doorObject.PlayAnimation();
+            
         }
 
-        else if (redKey)
-        {
-            key.GetSelectedItemKey();
-        }
+     
     }
 }
