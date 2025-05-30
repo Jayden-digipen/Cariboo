@@ -8,23 +8,67 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public string[] lines;
     public float textSpeed;
-
+    bool hasTriggerDialogue = false;
+    bool dialogueFinish = false;
     private int index;
+    float timer;
+    float timerToEnd;
+    [SerializeField] int timeWaitNextLine = 1;
+    [SerializeField] int timeWaitDisappear = 5;
+    [SerializeField] GameObject dialogueCanvas;
+
+
+
 
     private void Start()
     {
+        dialogueCanvas.SetActive(false);
         textComponent.text = string.Empty;
-        StartDialogue();
+        
     }
     private void Update()
     {
+       
         if(textComponent.text == lines[index])
         {
-            NextLine();
+            timer += Time.deltaTime;
+
+            if(timer >= timeWaitNextLine)
+            {
+                NextLine();
+                timer = 0;
+            }
             
+           
+            
+        }
+
+        if (dialogueFinish)
+        {
+            timerToEnd += Time.deltaTime;
+
+            if (timerToEnd >= timeWaitDisappear)
+            {
+                gameObject.SetActive(false);
+
+            }
         }
       
     }
+
+   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!hasTriggerDialogue)
+        {
+            dialogueCanvas.SetActive(true);
+            StartDialogue();
+            hasTriggerDialogue = true;
+        }
+        
+    }
+
     void StartDialogue()
     {
         index = 0;
@@ -48,6 +92,12 @@ public class Dialogue : MonoBehaviour
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
 
+        }
+
+        else
+        {
+            dialogueFinish = true;
+                    
         }
 
        
