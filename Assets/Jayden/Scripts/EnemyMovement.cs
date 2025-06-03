@@ -8,9 +8,11 @@ using Random = UnityEngine.Random;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] int subtractHealth = 1;
+    [SerializeField] float subtractHealth;
     public NavMeshAgent agent;
     public Transform player;
+    
+    public PlayerCamera playerCameraScript;
     public LayerMask isGrounded, isPlayer;
 
     //Scripts
@@ -34,7 +36,13 @@ public class EnemyMovement : MonoBehaviour
         
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+       
 
+    }
+
+    private void Start()
+    {
+        playerCameraScript = FindObjectOfType<PlayerCamera>();
     }
 
     private void Update()
@@ -98,6 +106,7 @@ public class EnemyMovement : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        transform.LookAt(player);
     }
 
     private void AttackPlayer()
@@ -110,9 +119,9 @@ public class EnemyMovement : MonoBehaviour
         {
             //Attack code here, implement later when there is a health script
             agent.SetDestination(transform.position);
+            //playerCameraScript.LookAtEnemy();
             playerHealth = FindObjectOfType<PlayerHealth>();
             playerHealth.TakeDamage(subtractHealth);
-
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }

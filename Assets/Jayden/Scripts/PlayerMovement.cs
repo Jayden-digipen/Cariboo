@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private float crouchYStart;
     [SerializeField] private float currentAccelerator = 5f;
 
+    
+
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Other")]
+    
     public Transform orientationPlayerCameraDirection;
     float horizontalInput;
     float verticalInput;
@@ -179,6 +182,8 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }        
     }
+
+    
 
     
     

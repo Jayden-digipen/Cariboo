@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float startingHealth = 5;
+    [SerializeField] private float startingHealth = 100;
+    [SerializeField] private Image currentHealthBar;
     public float currentHealth { get; private set; }
 
  
@@ -18,11 +19,14 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if(currentHealth > 0)
         {
             currentHealth -= damage;
+            currentHealthBar.fillAmount = currentHealth / 100f;
+            Debug.Log(currentHealth);
+
         }
       
     }

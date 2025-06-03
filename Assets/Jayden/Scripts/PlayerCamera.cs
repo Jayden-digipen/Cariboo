@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [Header("Enemy")]
+    public Transform enemyTransform;
+    [SerializeField] Transform playerCameraPosition;
+
     public float sensX; 
     public float sensY;
 
@@ -31,5 +35,10 @@ public class PlayerCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+
+    public void LookAtEnemy()
+    {
+        playerCameraPosition.LookAt(enemyTransform);
     }
 }
