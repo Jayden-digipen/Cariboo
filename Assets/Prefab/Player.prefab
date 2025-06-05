@@ -75,9 +75,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.5
   m_Range: 35
-  m_SpotAngle: 46
+  m_SpotAngle: 37.6
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1086262635946571626}
   - component: {fileID: 616989471765116212}
   - component: {fileID: 987848923538544793}
-  - component: {fileID: 8961554426466034332}
+  - component: {fileID: 1026932047276908269}
   m_Layer: 7
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -152,8 +152,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3456491537948432501}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.977, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.764, z: 0}
+  m_LocalScale: {x: 0.6, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8032008971051036549}
@@ -209,7 +209,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8961554426466034332
+--- !u!136 &1026932047276908269
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,10 +228,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.47993627
-  m_Height: 2
+  m_Radius: 0.31378338
+  m_Height: 1.9999999
   m_Direction: 1
-  m_Center: {x: -0.0023418367, y: 0, z: 0}
+  m_Center: {x: -0.00054041547, y: -0.000000085149495, z: 0}
 --- !u!1 &7150152464055094869
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 7150152464055094869}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.07, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1086262635946571626}
@@ -271,7 +271,7 @@ Transform:
   - {fileID: 6829151353834661340}
   - {fileID: 6532628894044723500}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3603404405244129213
 Rigidbody:
@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cb068c0395aa747b8bfe300bb381c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHeight: 2
   playerCapsule: {fileID: 1086262635946571626}
   currentSpeed: 0
   walkingSpeed: 3.5
@@ -319,6 +320,7 @@ MonoBehaviour:
   crouchSpeed: 3
   crouchYScale: 0.5
   currentAccelerator: 4
+  maxSlopeAngle: 40
   sprintKey: 304
   crouchKey: 306
   Stamina: 100
@@ -341,6 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 5
+  currentHealthBar: {fileID: 0}
 --- !u!82 &5647915969950672678
 AudioSource:
   m_ObjectHideFlags: 0
@@ -607,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5310906689689750818, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.424999
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5310906689689750818, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -615,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5310906689689750818, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.674999
+      value: -0.377
       objectReference: {fileID: 0}
     - target: {fileID: 5310906689689750818, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -644,6 +647,10 @@ PrefabInstance:
     - target: {fileID: 5310906689689750818, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318704151509671353, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
+      propertyPath: field of view
+      value: 47.4
       objectReference: {fileID: 0}
     - target: {fileID: 5318704151509671353, guid: b7b90ed2a89040b40b1d3eda812d85d2, type: 3}
       propertyPath: far clip plane
