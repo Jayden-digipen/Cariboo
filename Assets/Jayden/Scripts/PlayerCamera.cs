@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,11 @@ public class PlayerCamera : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
-
+    [SerializeField] GameObject mainCamera;
     float xRotation;
     float yRotation;
+
+    bool isHit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,16 @@ public class PlayerCamera : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (!isHit)
+        {
+            CameraMove();
+        }
+        
+       
+    }
+
+    private void CameraMove()
     {
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
@@ -39,6 +52,7 @@ public class PlayerCamera : MonoBehaviour
 
     public void LookAtEnemy()
     {
-        playerCameraPosition.LookAt(enemyTransform);
+        isHit = true;
+        mainCamera.transform.LookAt(enemyTransform);
     }
 }
