@@ -119,7 +119,7 @@ public class EnemyMovement : MonoBehaviour
         {
             //Attack code here, implement later when there is a health script
             agent.SetDestination(transform.position);
-            //playerCameraScript.LookAtEnemy();
+            playerCameraScript.LookAtEnemy();
             playerHealth = FindObjectOfType<PlayerHealth>();
             playerHealth.TakeDamage(subtractHealth);
             alreadyAttacked = true;
