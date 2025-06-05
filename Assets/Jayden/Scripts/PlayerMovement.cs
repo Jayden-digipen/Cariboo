@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     StaminaUI staminaUI;
 
     [Header("Player Transforms")]
+    public float playerHeight;
+
     [SerializeField] Transform playerCapsule;
     Transform playerTransform;
 
@@ -23,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     private float crouchYStart;
     [SerializeField] private float currentAccelerator = 5f;
 
+    [Header("Slope Handling")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
+    
     
 
     [Header("Keybinds")]
@@ -168,22 +174,60 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {    
         moveDirection = orientationPlayerCameraDirection.forward * verticalInput + orientationPlayerCameraDirection.right * horizontalInput;
+
+        if (OnSlope())
+        {
+            rb.AddForce(GetSlopeMoveDirection() * currentSpeed * 20f, ForceMode.Force);
+
+            if(rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * 100f, ForceMode.Force);
+            }
+        }
         rb.AddForce(moveDirection.normalized * currentSpeed * currentAccelerator, ForceMode.Force);
+        rb.useGravity = !OnSlope();
     }
 
     private void WalkingRunning()
     {
-        Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-     
-        
-        if (flatVelocity.magnitude >= currentSpeed)
+        if (OnSlope())
         {
-            Vector3 limitedVelocity = flatVelocity.normalized * walkingSpeed;
-            rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
-        }        
+            if(rb.velocity.magnitude > currentSpeed)
+            {
+                rb.velocity = rb.velocity.normalized;
+            }
+        }
+
+
+        else
+        {
+            Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+
+            if (flatVelocity.magnitude >= currentSpeed)
+            {
+                Vector3 limitedVelocity = flatVelocity.normalized * walkingSpeed;
+                rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            }
+        }
+        
     }
 
-    
+    private bool OnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight *0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+    }
 
     
     
