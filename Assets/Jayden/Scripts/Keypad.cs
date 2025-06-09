@@ -21,9 +21,7 @@ public class Keypad : MonoBehaviour
     public TextMeshProUGUI textObject;
     public string answer = "1234";
 
-    public AudioSource button;
-    public AudioSource correct;
-    public AudioSource wrong;
+    
 
     public bool animate;
 

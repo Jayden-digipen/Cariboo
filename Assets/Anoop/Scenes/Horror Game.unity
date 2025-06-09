@@ -3018,7 +3018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8032008971051036549, guid: 864164430ef0c094bad973c3a3fe07ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.66
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8032008971051036549, guid: 864164430ef0c094bad973c3a3fe07ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6445,7 +6445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ebe7f78e1c91047b7670b8cae34fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 729260820}
+  playerHealth: {fileID: 0}
 --- !u!1001 &458837915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10280,17 +10280,6 @@ MonoBehaviour:
   startingHealth: 5
   currentHealthBar: {fileID: 0}
   currentHealth: 0
---- !u!114 &729260820 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3508686477082857204, guid: 864164430ef0c094bad973c3a3fe07ef, type: 3}
-  m_PrefabInstance: {fileID: 243453821}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729260809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e49dc96a6e850f34b87cd272687c454f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &729260821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8032008971051036549, guid: 864164430ef0c094bad973c3a3fe07ef, type: 3}

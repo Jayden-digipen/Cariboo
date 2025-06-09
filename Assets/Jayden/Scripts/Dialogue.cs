@@ -22,6 +22,7 @@ public class Dialogue : MonoBehaviour
 
     private void Start()
     {
+        
         dialogueCanvas.SetActive(false);
         textComponent.text = string.Empty;
         

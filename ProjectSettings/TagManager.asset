@@ -7,6 +7,7 @@ TagManager:
   - Concealed
   - Object
   - InteractiveObject
+  - MenuCam
   layers:
   - Default
   - TransparentFX

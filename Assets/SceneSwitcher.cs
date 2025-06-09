@@ -9,7 +9,7 @@ public class SceneSwitcher : MonoBehaviour
 
    public void SceneSwitch()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync(3);
     }
 
    

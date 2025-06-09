@@ -7,6 +7,8 @@ public class CutSceneLoader : MonoBehaviour
 {
     private void OnEnable()
     {
-        SceneManager.LoadScene("Horror Game", LoadSceneMode.Single);
+        GameObject menuCam = GameObject.FindWithTag("MenuCam");
+        Destroy(menuCam);
+        SceneManager.LoadScene("Horror Game Best Scene", LoadSceneMode.Single);
     }
 }

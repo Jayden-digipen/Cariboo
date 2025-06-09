@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Anoop/Scenes/CutScene2.unity
     guid: 30bfcaddb4c77794581d7554de59140d
+  - enabled: 1
+    path: Assets/Anoop/Scenes/Horror Game Best Scene.unity
+    guid: a0327a7bb251d3647ab82e2b28c292a4
   m_configObjects: {}
