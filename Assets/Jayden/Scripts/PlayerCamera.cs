@@ -10,6 +10,7 @@ public class PlayerCamera : MonoBehaviour
     public Transform target;
     [SerializeField] EnemyMovement enemyMovement;
     [SerializeField] GameObject enemy;
+    [SerializeField] GameObject enemyJumpscare;
     [SerializeField] Animator jumpscareAnimation;
     public float speed = 1f;
     [Header("Player")]
@@ -19,6 +20,10 @@ public class PlayerCamera : MonoBehaviour
     
     public float sensX; 
     public float sensY;
+
+    AnimatorStateInfo animStateInfo;
+    public float NTime;
+    bool animationFinished;
 
     public Transform orientation;
     [SerializeField] GameObject mainCamera;
@@ -38,19 +43,25 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (!isHit)
         {
             CameraMove();
-            
+           
+
         }
 
         if (isHit)
         {
             ResumeJumpscare();
+
         }
-       
+        if (jumpscareAnimation.GetCurrentAnimatorStateInfo(0).length < jumpscareAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime)
+        {
+            Debug.Log("animation has finished!!");
+        }
     }
+        
+       
 
     private void CameraMove()
     {
@@ -69,30 +80,37 @@ public class PlayerCamera : MonoBehaviour
     public void LookAtEnemy()
     {
         isHit = true;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         playerMovement.enabled = false;
         enemyMovement.enabled = false;
         headbob.enabled = false;
         enemy.SetActive(false);
+        enemyJumpscare.SetActive(true);
+        jumpscareAnimation.Play("Jumpscare", 0, 0f);
         
-       
-       
 
-        
-        
+
+
+
+
+
 
     }
     void ResumeJumpscare()
     {
-        //if (player.GetComponent<Rigidbody>().velocity.magnitude == 0)
-        //{
-            target.transform.position = transform.position + new Vector3(0.06f, -0.3f, 2.4f);
+        if (player.GetComponent<Rigidbody>().velocity.magnitude == 0)
+        {
+            target.transform.position = transform.position;
+            
             StartCoroutine(LookAt());
-        //}
+            
+        }
     }
 
 
     IEnumerator LookAt()
     {
+        
         Quaternion lookRotation = Quaternion.LookRotation(target.position - transform.position);
 
         float time = 0f;
@@ -100,12 +118,18 @@ public class PlayerCamera : MonoBehaviour
         while(time < 1)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
-            jumpscareAnimation.Play("Jumpscare", 0, 0.0f);
+            
             time += Time.deltaTime * speed;
 
             yield return null;
         }
+
+        
+
+        
     }
 
-   
+    
+
+
 }
