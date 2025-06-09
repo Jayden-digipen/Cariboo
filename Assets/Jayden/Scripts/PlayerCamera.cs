@@ -1,14 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
     [Header("Enemy")]
-    public Transform enemyTransform;
-    [SerializeField] Transform playerCameraPosition;
-
+    public Transform target;
+    [SerializeField] EnemyMovement enemyMovement;
+    [SerializeField] GameObject enemy;
+    [SerializeField] Animator jumpscareAnimation;
+    public float speed = 1f;
+    [Header("Player")]
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] GameObject player;
+    [SerializeField] Headbob headbob;
+    
     public float sensX; 
     public float sensY;
 
@@ -21,6 +29,8 @@ public class PlayerCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -28,11 +38,17 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (!isHit)
         {
             CameraMove();
+            
         }
-        
+
+        if (isHit)
+        {
+            ResumeJumpscare();
+        }
        
     }
 
@@ -53,6 +69,43 @@ public class PlayerCamera : MonoBehaviour
     public void LookAtEnemy()
     {
         isHit = true;
-        mainCamera.transform.LookAt(enemyTransform);
+        playerMovement.enabled = false;
+        enemyMovement.enabled = false;
+        headbob.enabled = false;
+        enemy.SetActive(false);
+        
+       
+       
+
+        
+        
+
     }
+    void ResumeJumpscare()
+    {
+        if (player.GetComponent<Rigidbody>().velocity.magnitude == 0)
+        {
+            target.transform.position = transform.position + new Vector3(0.06f, -0.3f, 2.4f);
+            StartCoroutine(LookAt());
+        }
+    }
+
+
+    IEnumerator LookAt()
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(target.position - transform.position);
+
+        float time = 0f;
+
+        while(time < 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
+            jumpscareAnimation.Play("Jumpscare", 0, 0.0f);
+            time += Time.deltaTime * speed;
+
+            yield return null;
+        }
+    }
+
+   
 }
