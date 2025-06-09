@@ -83,11 +83,11 @@ public class PlayerCamera : MonoBehaviour
     }
     void ResumeJumpscare()
     {
-        if (player.GetComponent<Rigidbody>().velocity.magnitude == 0)
-        {
+        //if (player.GetComponent<Rigidbody>().velocity.magnitude == 0)
+        //{
             target.transform.position = transform.position + new Vector3(0.06f, -0.3f, 2.4f);
             StartCoroutine(LookAt());
-        }
+        //}
     }
 
 
