@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.U2D;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
     [Header("Enemy")]
-    public Transform target;
+    [SerializeField] GameObject[] enemies;
+    [SerializeField]Transform target;
     [SerializeField] EnemyMovement enemyMovement;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject enemyJumpscare;
@@ -30,12 +32,12 @@ public class PlayerCamera : MonoBehaviour
     float xRotation;
     float yRotation;
 
-    bool isHit = false;
+    public bool isHit = false;
     // Start is called before the first frame update
     void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
-        
+        //enemyJumpscare.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -43,25 +45,108 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+       
+        Debug.Log(GetClosestEnemy(enemies));
+        Debug.Log(enemy);
+        Debug.Log(enemyMovement);
+        Debug.Log(target);
+        Debug.Log(enemyJumpscare);
+
+
         if (!isHit)
         {
+            playerMovement.enabled = true;         
+            headbob.enabled = true;
             CameraMove();
-           
+            //enemyJumpscare.SetActive(false);
+            //enemyMovement.enabled = true;
+            //enemy.SetActive(true);
+            //enemyJumpscare.SetActive(false);
 
         }
 
-        if (isHit)
+        else if (isHit)
         {
             ResumeJumpscare();
 
         }
-        if (jumpscareAnimation.GetCurrentAnimatorStateInfo(0).length < jumpscareAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime)
+
+        GetAllComponentsOfEnemy();
+    }
+
+   
+
+    GameObject GetClosestEnemy(GameObject[] enemies)
+    {
+        GameObject bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach(GameObject potentialTarget in enemies)
         {
-            Debug.Log("animation has finished!!");
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrTarget = directionToTarget.sqrMagnitude;
+            if(dSqrTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrTarget;
+                bestTarget= potentialTarget;
+            }
+        }
+
+        return bestTarget;
+    }
+
+    private void GetAllComponentsOfEnemy()
+    {
+        GameObject closestEnemy = GetClosestEnemy(enemies);
+        int NumberChildren = closestEnemy.transform.childCount;
+
+        if (NumberChildren < 1)
+        {
+            return;
+        }
+
+
+        for (int n = 0; n < NumberChildren; n++)
+        {
+            Transform child =  closestEnemy.transform.GetChild(n);
+            GameObject childGameObject = child.gameObject;
+            if (child.CompareTag("Target"))
+            {
+                target = child;
+            }
+
+
+            if (child.CompareTag("EnemyGirl"))
+            {
+                enemy = childGameObject;
+                enemyMovement = enemy.GetComponent<EnemyMovement>();
+            }
+
+        }
+
+        int NumberOfChildrenTarget = target.transform.childCount;
+
+        if (NumberChildren < 1)
+        {
+            return;
+        }
+
+        for (int n = 0; n < NumberOfChildrenTarget; n++)
+        {
+            Transform childTarget = closestEnemy.transform.GetChild(n);
+            GameObject childGameObjectTarget = childTarget.gameObject;
+
+
+            if (childTarget.CompareTag("JumpscareGirl"))
+            {
+                enemyJumpscare = childGameObjectTarget;
+                jumpscareAnimation = enemyJumpscare.GetComponent<Animator>();
+            }
         }
     }
-        
-       
+
+
 
     private void CameraMove()
     {
@@ -77,15 +162,23 @@ public class PlayerCamera : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
+    
+
+
+
+
+
     public void LookAtEnemy()
     {
-        isHit = true;
+        
+        //enemyJumpscare.SetActive(true);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        playerMovement.enabled = false;
-        enemyMovement.enabled = false;
-        headbob.enabled = false;
-        enemy.SetActive(false);
-        enemyJumpscare.SetActive(true);
+        //enemyMovement.EnemyBackToStart();
+        //playerMovement.enabled = false;
+        //enemyMovement.enabled = false;
+        //headbob.enabled = false;
+        //enemy.SetActive(false);
+        //enemyJumpscare.SetActive(true);
         jumpscareAnimation.Play("Jumpscare", 0, 0f);
         
 

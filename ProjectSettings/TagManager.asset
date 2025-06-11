@@ -8,6 +8,10 @@ TagManager:
   - Object
   - InteractiveObject
   - MenuCam
+  - Enemy
+  - Target
+  - JumpscareGirl
+  - EnemyGirl
   layers:
   - Default
   - TransparentFX

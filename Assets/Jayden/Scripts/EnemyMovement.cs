@@ -11,7 +11,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float subtractHealth;
     public NavMeshAgent agent;
     public Transform player;
-    
+    Vector3 startingPosition;
+
     public PlayerCamera playerCameraScript;
     public LayerMask isGrounded, isPlayer;
 
@@ -33,15 +34,16 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        
+
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-       
+
 
     }
 
     private void Start()
     {
+        startingPosition = transform.position;
         playerCameraScript = FindObjectOfType<PlayerCamera>();
     }
 
@@ -50,23 +52,23 @@ public class EnemyMovement : MonoBehaviour
         playerSightRange = Physics.CheckSphere(transform.position, sightRange, isPlayer);
         playerAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
-        if(!playerSightRange && !playerAttackRange)
+        if (!playerSightRange && !playerAttackRange)
         {
             Patroling();
         }
 
-        if(playerSightRange && !playerAttackRange && player.CompareTag("Player") == true)
+        if (playerSightRange && !playerAttackRange && player.CompareTag("Player") == true)
         {
             ChasePlayer();
         }
 
-        if(playerSightRange & playerAttackRange && player.CompareTag("Player") == true)
+        if (playerSightRange & playerAttackRange && player.CompareTag("Player") == true)
         {
             AttackPlayer();
         }
     }
 
-    
+
 
     private void Patroling()
     {
@@ -83,7 +85,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //walkpoint reached
-        if(distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1f)
         {
             //search new walkPoint
             walkPointSet = false;
@@ -97,7 +99,7 @@ public class EnemyMovement : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if(Physics.Raycast(walkPoint, - transform.up, 2f, isGrounded))
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, isGrounded))
         {
             walkPointSet = true;
         }
@@ -140,5 +142,9 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
+    public void EnemyBackToStart()
+    {
+        transform.position = startingPosition;
+    }
 
 }
