@@ -70,6 +70,7 @@ public class Keypad : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = true;
         playerCamera.GetComponent<PlayerCamera>().enabled = true;
         playerCamerabob.GetComponent<Headbob>().enabled = true;
+        AllSoundActiveAgain();
     }
 
     public void Update()
@@ -90,6 +91,16 @@ public class Keypad : MonoBehaviour
             playerCamerabob.GetComponent<Headbob>().enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            MuteAllSound();
         }
+    }
+
+    public void MuteAllSound()
+    {
+        AudioListener.volume = 0;
+    }
+    public void AllSoundActiveAgain()
+    {
+        AudioListener.volume = 2-;
     }
 }

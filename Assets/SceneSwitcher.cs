@@ -12,5 +12,15 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadSceneAsync(3);
     }
 
+    public void SceneSwitchd()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+
+    public void SceneSwatch()
+    {
+        SceneManager.LoadSceneAsync(4);
+    }
+
    
 }

@@ -16,21 +16,25 @@ public class Dialogue : MonoBehaviour
     [SerializeField] int timeWaitNextLine = 1;
     [SerializeField] int timeWaitDisappear = 5;
     [SerializeField] GameObject dialogueCanvas;
+    [SerializeField] GameObject ColliderBlocker;
 
 
 
 
     private void Start()
     {
-        
+      
+        ColliderBlocker.SetActive(true);
         dialogueCanvas.SetActive(false);
         textComponent.text = string.Empty;
         
     }
     private void Update()
     {
+
        
-        if(textComponent.text == lines[index])
+
+        if (textComponent.text == lines[index])
         {
             timer += Time.deltaTime;
 
@@ -61,12 +65,19 @@ public class Dialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (!hasTriggerDialogue)
         {
             dialogueCanvas.SetActive(true);
             StartDialogue();
             hasTriggerDialogue = true;
         }
+
+        if (ColliderBlocker != null)
+        {
+            ColliderBlocker.SetActive(false);
+        }
+
         
     }
 
@@ -104,6 +115,7 @@ public class Dialogue : MonoBehaviour
        
     }
 
+   
    
    
 

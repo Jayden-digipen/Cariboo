@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
-    - _RotateTX: 90
-    - _TileScale: 10.5
+    - _RotateTX: 180
+    - _TileScale: 20
     m_Colors: []
   m_BuildTextureStacks: []
