@@ -101,6 +101,6 @@ public class Keypad : MonoBehaviour
     }
     public void AllSoundActiveAgain()
     {
-        AudioListener.volume = 2-;
+        AudioListener.volume = -2;
     }
 }

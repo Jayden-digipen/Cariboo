@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     public float walkPointRange;
 
     //Attack
+    
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
@@ -43,12 +44,16 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
+        
         startingPosition = transform.position;
         playerCameraScript = FindObjectOfType<PlayerCamera>();
+        
     }
 
     private void Update()
     {
+        LayerMask mask = LayerMask.GetMask("Wall");
+        RaycastHit hit;
         playerSightRange = Physics.CheckSphere(transform.position, sightRange, isPlayer);
         playerAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
@@ -62,10 +67,19 @@ public class EnemyMovement : MonoBehaviour
             ChasePlayer();
         }
 
-        if (playerSightRange & playerAttackRange && player.CompareTag("Player") == true)
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
         {
+            return;
+        }
+
+        else if (playerSightRange && playerAttackRange && player.CompareTag("Player") == true){
             AttackPlayer();
         }
+               
+            
+
+               
+      
     }
 
 

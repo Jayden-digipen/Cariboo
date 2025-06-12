@@ -12,6 +12,7 @@ TagManager:
   - Target
   - JumpscareGirl
   - EnemyGirl
+  - Wall
   layers:
   - Default
   - TransparentFX
