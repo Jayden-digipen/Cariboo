@@ -63,7 +63,7 @@ public class PlayerCamera : MonoBehaviour
                 enemyJumpscare.SetActive(false);
                 enemyMovement.enabled = true;
                 enemy.SetActive(true);
-                enemyJumpscare.SetActive(false);
+                
             }
            
 
