@@ -14,6 +14,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject enemyJumpscare;
     [SerializeField] Animator jumpscareAnimation;
+    [SerializeField] AudioClip jumpscareClip;
     public float speed = 1f;
     [Header("Player")]
     [SerializeField] PlayerMovement playerMovement;
@@ -177,6 +178,7 @@ public class PlayerCamera : MonoBehaviour
         enemy.SetActive(false);
         ResumeJumpscare();  
         jumpscareAnimation.Play("Jumpscare", 0, 0f);
+        AudioSource.PlayClipAtPoint(jumpscareClip, Camera.main.transform.position);
 
     }
     void ResumeJumpscare()
