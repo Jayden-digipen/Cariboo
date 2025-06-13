@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
             
             state = MovementState.walking;
             currentSpeed = walkingSpeed;
-            FootstepAudioSource.Play();
+            //FootstepAudioSource.Play();
 
 
 

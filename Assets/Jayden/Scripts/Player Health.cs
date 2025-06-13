@@ -9,9 +9,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float startingHealth = 100;
     [SerializeField] private Image currentHealthBar;
     public float currentHealth;
-
- 
     
+
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,12 +20,17 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        currentHealthBar.fillAmount = currentHealth / 100f;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, 100f);
+    }
+
     public void TakeDamage(float damage)
     {
-        if(currentHealth > 0)
+        if(currentHealth >= 0)
         {
             currentHealth -= damage;
-            currentHealthBar.fillAmount = currentHealth / 100f;
             Debug.Log(currentHealth);
 
         }

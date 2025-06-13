@@ -24,11 +24,12 @@ public class Healing : MonoBehaviour
         if ((InventoryManager.instance != null && InventoryManager.instance.selectedSlot != -1))
         {
             Item item = InventoryManager.instance.GetSelectedItem(false);
+            playerHealth = FindObjectOfType<PlayerHealth>();
 
-            if (item != null && Input.GetKey(KeyCode.Mouse0) && item.type == ItemType.Medicine)
+            if (item != null && Input.GetKey(KeyCode.Mouse0) && item.type == ItemType.Medicine && playerHealth.currentHealth < 100)
             {
                 playerHealth = FindObjectOfType<PlayerHealth>();
-
+                Debug.Log("Medicine" + playerHealth);
                 playerHealth.currentHealth += addedHealth;
 
 
