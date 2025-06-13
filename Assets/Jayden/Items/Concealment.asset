@@ -16,4 +16,4 @@ MonoBehaviour:
   action: 0
   stackable: 0
   itemName: Concealment
-  image: {fileID: 21300000, guid: 85ee18a6f1dab6a4b866d6d83c7f53d5, type: 3}
+  image: {fileID: 21300000, guid: 5ee8238cb66d6fb4b98b1b14b3ea9216, type: 3}

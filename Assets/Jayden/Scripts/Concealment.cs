@@ -12,6 +12,7 @@ public class Concealment : MonoBehaviour
     InventoryManager inventoryManager;
     public Image image;
     float imageShower;
+    bool isConcealed = false;
 
     private void Start()
     {      
@@ -28,9 +29,10 @@ public class Concealment : MonoBehaviour
         {
             Item item = InventoryManager.instance.GetSelectedItem(false);
 
-            if (item != null && Input.GetKey(KeyCode.Mouse0) && item.type == ItemType.Concealment)
+            if (item != null && Input.GetKey(KeyCode.Mouse0) && item.type == ItemType.Concealment && isConcealed == false)
             {
                 InventoryManager.instance.GetSelectedItem(true);
+                isConcealed = true;
                 player.tag = "Concealed";
                 
                 
@@ -50,6 +52,7 @@ public class Concealment : MonoBehaviour
     {
         yield return new WaitForSeconds(concealmentTime);
         player.tag = "Player";
+        isConcealed=false;
          
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
 
