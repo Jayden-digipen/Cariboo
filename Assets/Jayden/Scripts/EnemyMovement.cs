@@ -67,10 +67,10 @@ public class EnemyMovement : MonoBehaviour
             ChasePlayer();
         }
 
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
-        {
-            return;
-        }
+        //if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
+        //{
+            //return;
+        //}
 
         else if (playerSightRange && playerAttackRange && player.CompareTag("Player") == true){
             AttackPlayer();

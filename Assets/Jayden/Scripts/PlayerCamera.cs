@@ -34,11 +34,12 @@ public class PlayerCamera : MonoBehaviour
     float yRotation;
 
     public bool isHit = false;
+    //[SerializeField] static bool anotherJumpscarePlaying = false;
     bool gotAnEnemy = false;
     // Start is called before the first frame update
     void Start()
     {
-        GetAllComponentsOfEnemy();
+       
         playerMovement = FindObjectOfType<PlayerMovement>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -54,9 +55,12 @@ public class PlayerCamera : MonoBehaviour
 
         if (!isHit)
         {
+            UpdateEnemiesList();
+            RefreshEnemyTarget();
             CameraMove();
             playerMovement.enabled = true;         
             headbob.enabled = true;
+            //anotherJumpscarePlaying = false;
             
 
             if (gotAnEnemy)
@@ -71,7 +75,7 @@ public class PlayerCamera : MonoBehaviour
         }
 
        
-        GetAllComponentsOfEnemy();
+       
     }
 
    
@@ -96,29 +100,26 @@ public class PlayerCamera : MonoBehaviour
         return bestTarget;
     }
 
-    public void GetAllComponentsOfEnemy()
+    
+    void UpdateEnemiesList()
     {
-        GameObject closestEnemy = GetClosestEnemy(enemies);
-        int NumberChildren = closestEnemy.transform.childCount;
-        if (closestEnemy == null)
-        {
-            return;
-        }
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
 
-        if (NumberChildren < 1)
-        {
-            return;
-        }
+    void RefreshEnemyTarget()
+    {
+        GameObject closest = GetClosestEnemy(enemies);
+        if (closest == null) return;
 
-        Transform[] allChildren = closestEnemy.GetComponentsInChildren<Transform>(true);
-       
+        int NumberChildren = closest.transform.childCount;
+        if (NumberChildren < 1) return;
+
+        Transform[] allChildren = closest.GetComponentsInChildren<Transform>(true);
 
         foreach (Transform child in allChildren)
         {
             if (child.CompareTag("Target"))
-            {
                 target = child;
-            }
 
             if (child.CompareTag("EnemyGirl"))
             {
@@ -129,14 +130,11 @@ public class PlayerCamera : MonoBehaviour
             if (child.CompareTag("JumpscareGirl"))
             {
                 enemyJumpscare = child.gameObject;
-                jumpscareAnimation = child.gameObject.GetComponent<Animator>();
+                jumpscareAnimation = child.GetComponent<Animator>();
             }
 
             gotAnEnemy = true;
-
         }
-
-        
     }
 
 
@@ -163,22 +161,21 @@ public class PlayerCamera : MonoBehaviour
     public void LookAtEnemy()
     {
         isHit = true;
-        if (enemyJumpscare == null)
-        {
-            Debug.LogWarning("enemyJumpscare is NULL");
-            return;
-        }
 
         enemyJumpscare.SetActive(true);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        enemyMovement.EnemyBackToStart();
+
         playerMovement.enabled = false;
+        enemyMovement.EnemyBackToStart();
         enemyMovement.enabled = false;
         headbob.enabled = false;
         enemy.SetActive(false);
-        ResumeJumpscare();  
+
+       
         jumpscareAnimation.Play("Jumpscare", 0, 0f);
-        AudioSource.PlayClipAtPoint(jumpscareClip, Camera.main.transform.position);
+        ResumeJumpscare();
+
+        AudioSource.PlayClipAtPoint(jumpscareClip, mainCamera.transform.position);
 
     }
     void ResumeJumpscare()

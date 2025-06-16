@@ -30,7 +30,11 @@ public enum ItemType
     Keys,
     Medicine,
     Stamina,
-    Concealment
+    Concealment,
+    Triangle,
+    Circle,
+    Square,
+    Star
 
 }
 
