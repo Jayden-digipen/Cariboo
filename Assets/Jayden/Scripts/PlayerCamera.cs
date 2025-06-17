@@ -48,15 +48,15 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
 
+        RefreshEnemyTarget();
         Debug.Log(GetClosestEnemy(enemies));
 
 
         if (!isHit)
         {
             UpdateEnemiesList();
-            RefreshEnemyTarget();
+            
             CameraMove();
             playerMovement.enabled = true;         
             headbob.enabled = true;
@@ -93,6 +93,7 @@ public class PlayerCamera : MonoBehaviour
             {
                 closestDistanceSqr = dSqrTarget;
                 bestTarget= potentialTarget;
+
             }
         }
 
@@ -111,8 +112,8 @@ public class PlayerCamera : MonoBehaviour
         GameObject closest = GetClosestEnemy(enemies);
         if (closest == null) return;
 
-        int NumberChildren = closest.transform.childCount;
-        if (NumberChildren < 1) return;
+        //int NumberChildren = closest.transform.childCount;
+        //if (NumberChildren < 1) return;
 
         Transform[] allChildren = closest.GetComponentsInChildren<Transform>(true);
 
