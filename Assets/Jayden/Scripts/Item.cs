@@ -28,6 +28,7 @@ public enum ItemType
     Lighter,
     Notes,
     Keys,
+    MasterKey,
     Medicine,
     Stamina,
     Concealment,

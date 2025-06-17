@@ -21,7 +21,13 @@ public class Keypad : MonoBehaviour
     public TextMeshProUGUI textObject;
     public string answer = "1234";
 
-    
+    [SerializeField] AudioSource keypadAudioSource;
+    [SerializeField] AudioClip buttonClip;
+    [SerializeField] AudioClip rightClip;
+    [SerializeField] AudioClip wrongClip;
+
+    [SerializeField] private string openAnimationName = "DoorOpen";
+
 
     public bool animate;
 
@@ -34,7 +40,7 @@ public class Keypad : MonoBehaviour
     public void Number(int number)
     {
         textObject.text += number.ToString();
-        //button.Play();
+        keypadAudioSource.PlayOneShot(buttonClip);
         
     }
 
@@ -42,21 +48,28 @@ public class Keypad : MonoBehaviour
     {
         if (textObject.text == answer)
         {
-            //correct.Play();
+            keypadAudioSource.PlayOneShot(rightClip);
             textObject.text = "Right";
+            Invoke("ClearText", 1f);
         }
 
         else
         {
-            //wrong.Play();
+            keypadAudioSource.PlayOneShot(wrongClip);
             textObject.text = "Wrong";
+            Invoke("ClearText", 1f);
         }
     }
 
     public void Clear()
     {
         textObject.text = "";
-        //button.Play();
+        keypadAudioSource.PlayOneShot(buttonClip);
+    }
+
+    private void ClearText()
+    {
+        textObject.text = "";
     }
 
     public void Exit()
@@ -70,14 +83,14 @@ public class Keypad : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = true;
         playerCamera.GetComponent<PlayerCamera>().enabled = true;
         playerCamerabob.GetComponent<Headbob>().enabled = true;
-        AllSoundActiveAgain();
+        
     }
 
     public void Update()
     {
         if(textObject.text == "Right" && animate)
         {
-            animator.Play("DoorOpen", 0, 0.0f);
+            animator.Play(openAnimationName, 0, 0.0f);
             Debug.Log("OPenm");
         }
 
@@ -91,16 +104,9 @@ public class Keypad : MonoBehaviour
             playerCamerabob.GetComponent<Headbob>().enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            MuteAllSound();
+            
         }
     }
 
-    public void MuteAllSound()
-    {
-        AudioListener.volume = 0;
-    }
-    public void AllSoundActiveAgain()
-    {
-        AudioListener.volume = 2;
-    }
+    
 }

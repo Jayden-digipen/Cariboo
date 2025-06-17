@@ -9,6 +9,7 @@ public class Interact : MonoBehaviour
 {
     [SerializeField] GameObject interactText;
     [SerializeField] Item item;
+    [SerializeField] AudioClip clip;
     public void Initialize(Item item)
     {
         this.item = item;
@@ -26,6 +27,7 @@ public class Interact : MonoBehaviour
 
             if (canAdd)
             {
+                AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
                 Destroy(gameObject);
             }
         }

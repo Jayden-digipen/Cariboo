@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -24,6 +25,11 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealthBar.fillAmount = currentHealth / 100f;
         currentHealth = Mathf.Clamp(currentHealth, 0f, 100f);
+
+        if(currentHealth <= 0)
+        {
+            SceneManager.LoadScene("You died scene");
+        }
     }
 
     public void TakeDamage(float damage)

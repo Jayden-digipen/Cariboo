@@ -10,7 +10,10 @@ public class NoteInteract : MonoBehaviour
     public GameObject playerCamerabob;
     public GameObject hud;
     public GameObject inv;
+    public GameObject crosshair;
+
     bool inTrigger = false;
+    bool isReadingNote = false;
 
     private void Start()
     {
@@ -33,8 +36,10 @@ public class NoteInteract : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && inTrigger)
         {
             noteCanvas.SetActive(true);
-            inv.SetActive(false);
+            isReadingNote = true;
             hud.SetActive(false);
+            inv.SetActive(false);
+            crosshair.SetActive(false);
             playerCamera.GetComponent<PlayerCamera>().enabled = false;
             playerCamerabob.GetComponent<Headbob>().enabled = false;
             Cursor.visible = true;
@@ -42,23 +47,22 @@ public class NoteInteract : MonoBehaviour
 
         }
 
-        else if (!inTrigger)
-        {
-            Exit();
-        }
+        
 
 
     }
 
     public void Exit()
-    {            
-          noteCanvas.SetActive(false);
-          inv.SetActive(true);
-          hud.SetActive(true);
-          playerCamera.GetComponent<PlayerCamera>().enabled = true;
-          playerCamerabob.GetComponent<Headbob>().enabled = true;
-          Cursor.lockState = CursorLockMode.Locked;
-          Cursor.visible = false;
-       
+    {
+        noteCanvas.SetActive(false);
+        isReadingNote = false;
+        inv.SetActive(true);
+        hud.SetActive(true);
+        crosshair.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        playerCamera.GetComponent<PlayerCamera>().enabled = true;
+        playerCamerabob.GetComponent<Headbob>().enabled = true;
+
     }
 }

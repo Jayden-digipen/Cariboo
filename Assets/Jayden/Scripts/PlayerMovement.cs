@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -32,8 +33,15 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask isGrounded;
     bool grounded;
     public float playerHeight;
-    
+    [SerializeField] float groundDrag;
 
+    [Header("Sound effects")]
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioClip[] moveClip;
+   
+
+    private float footstepTimer = 0f;
+    private float footstepInterval = 0.5f;
 
     [Header("Keybinds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
@@ -56,8 +64,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
    
 
-    [SerializeField] AudioSource walkingAudioSource;
-   [SerializeField] AudioSource FootstepAudioSource;
+  
    
 
     public MovementState state;
@@ -82,19 +89,80 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, isGrounded);
-
+        Debug.Log(OnSlope());
        
         playerCapsule.transform.rotation = orientationPlayerCameraDirection.transform.rotation;
         MyInput();
         StateHandler();
-        WalkingRunning();
+        SpeedControl();
+        PlayFootstepSounds();
 
-        
 
+        if (state == MovementState.crouch)
+        {
+            rb.drag = groundDrag;
+        }
+            
+        else
+            rb.drag = 0;
 
     }
 
-   
+    private AudioClip GetRandomClip(AudioClip[] clips)
+    {
+        if (clips.Length == 0) return null;
+        return clips[Random.Range(0, clips.Length)];
+    }
+
+
+    private void PlayFootstepSounds()
+    {
+        Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        bool isMoving = horizontalInput != 0 || verticalInput != 0;
+
+
+        if (!grounded || !isMoving)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        AudioClip selectedClip = null;
+
+        if (state == MovementState.walking)
+        {
+            footstepInterval = 0.5f;
+            selectedClip = GetRandomClip(moveClip);
+           
+                
+        }
+        else if (state == MovementState.running)
+        {
+            footstepInterval = 0.3f;
+            selectedClip = GetRandomClip(moveClip);
+
+
+        }
+        else if (state == MovementState.crouch)
+        {
+            footstepInterval = 0.8f;
+            selectedClip = GetRandomClip(moveClip);
+
+
+        }
+        else
+        {
+            return; 
+        }
+
+        // Timer playback
+        footstepTimer -= Time.deltaTime;
+        if (footstepTimer <= 0f && selectedClip != null)
+        {
+            footstepAudioSource.PlayOneShot(selectedClip);
+            footstepTimer = footstepInterval;
+        }
+    }
 
     private void FixedUpdate()
     {    
@@ -127,13 +195,10 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = crouchSpeed;
         }
 
-        else if (Input.GetKey(sprintKey) & Stamina > 0)
+        else if (Input.GetKey(sprintKey) & Stamina > 0 && grounded)
         {
-
-            state = MovementState.running;
-           
-            currentSpeed = runningSpeed;
-           
+            state = MovementState.running;     
+            currentSpeed = runningSpeed;        
             Stamina -= StaminaDecreaser;
             staminaUI.StaminaBar.fillAmount = Stamina / 100;
             restartCountdown = true;
@@ -145,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
             
             state = MovementState.walking;
             currentSpeed = walkingSpeed;
-            //FootstepAudioSource.Play();
+           
 
 
 
@@ -197,18 +262,18 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * currentSpeed * currentAccelerator, ForceMode.Force);
         }
+
       
+
         rb.useGravity = !OnSlope();
     }
 
-    private void WalkingRunning()
+    private void SpeedControl()
     {
         if (OnSlope())
         {
-            if(rb.velocity.magnitude > currentSpeed)
-            {
-                rb.velocity = rb.velocity.normalized;
-            }
+            if (rb.velocity.magnitude > currentSpeed)
+                rb.velocity = rb.velocity.normalized * currentSpeed;
         }
 
 

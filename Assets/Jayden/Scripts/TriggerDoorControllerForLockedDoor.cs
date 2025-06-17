@@ -8,6 +8,7 @@ public class TriggerDoorControllerForLockedDoor : MonoBehaviour
     private Animator doorAnim;
     private bool doorOpen = false;
     public bool openedRedDoor = false;
+    public bool openedMasterDoor = false;
     [Header("Animation Names")]
     [SerializeField] private string openAnimationName = "DoorOpen";
     [SerializeField] private string closeAnimationName = "DoorClose";
@@ -19,6 +20,10 @@ public class TriggerDoorControllerForLockedDoor : MonoBehaviour
 
     [SerializeField] private int waitTimer = 1;
     [SerializeField] private bool pauseInteraction = false;
+
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip openDoor;
+    [SerializeField] AudioClip closeDoor;
 
     private void Awake()
     {
@@ -37,16 +42,38 @@ public class TriggerDoorControllerForLockedDoor : MonoBehaviour
         if (_keyInventory.hasRedKey)
         {
             openedRedDoor = true;
-            if(!doorOpen && !pauseInteraction)
+            if (!doorOpen && !pauseInteraction)
             {
                 doorAnim.Play(openAnimationName, 0, 0.0f);
+                audioSource.PlayOneShot(openDoor);
                 doorOpen = true;
                 StartCoroutine(PauseDoorInteraction());
             }
 
-            else if(doorOpen && !pauseInteraction)
+            else if (doorOpen && !pauseInteraction)
             {
                 doorAnim.Play(closeAnimationName, 0, 0.0f);
+                audioSource.PlayOneShot(closeDoor);
+                doorOpen = false;
+                StartCoroutine(PauseDoorInteraction());
+            }
+        }
+
+        else if (_keyInventory.hasMasterKey)
+        {
+            openedMasterDoor = true;
+            if (!doorOpen && !pauseInteraction)
+            {
+                doorAnim.Play(openAnimationName, 0, 0.0f);
+                audioSource.PlayOneShot(openDoor);
+                doorOpen = true;
+                StartCoroutine(PauseDoorInteraction());
+            }
+
+            else if (doorOpen && !pauseInteraction)
+            {
+                doorAnim.Play(closeAnimationName, 0, 0.0f);
+                audioSource.PlayOneShot(closeDoor);
                 doorOpen = false;
                 StartCoroutine(PauseDoorInteraction());
             }

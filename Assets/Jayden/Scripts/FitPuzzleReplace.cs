@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,33 +10,47 @@ public class FitPuzzleReplace : MonoBehaviour
     [SerializeField] bool isTriangle;
     [SerializeField] bool isStar;
 
-    [SerializeField] GameObject square;
-    [SerializeField] GameObject circle;
-    [SerializeField] GameObject triangle;
-    [SerializeField] GameObject star;
+   
+    
 
     private ShapeInventory shapeInventory;
-    
+    private SetPuzzlesActive setPuzzlesActive;
+
+    private void Start()
+    {
+        shapeInventory = FindObjectOfType<ShapeInventory>();
+        setPuzzlesActive = FindObjectOfType<SetPuzzlesActive>();
+
+       
+    }
+
+    private void Update()
+    {
+        
+    }
+
+   
+
     public void ShapeCheck()
     {
         if (isSquare && shapeInventory.hasSquareShape == true)
         {
-            square.SetActive(true);
+            setPuzzlesActive.SquareEnable();
         }
 
         if (isCircle && shapeInventory.hasCircleShape == true)
         {
-            circle.SetActive(true);
+            setPuzzlesActive.CircleEnable();
         }
 
         if (isTriangle && shapeInventory.hasTriangleShape == true)
         {
-            triangle.SetActive(true);
+            setPuzzlesActive.TriangleEnable();
         }
 
         if (isStar && shapeInventory.hasStarShape == true)
         {
-            star.SetActive(true);
+            setPuzzlesActive.StarEnable();
         }
 
         else

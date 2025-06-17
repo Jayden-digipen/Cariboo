@@ -6,7 +6,8 @@ public class KeyItemController : MonoBehaviour
 {
     
     [SerializeField] private bool redDoor = false;
-   
+    [SerializeField] private bool masterDoor = false;
+
 
     [SerializeField] private KeyInventory _keyInventory = null;
     Key key;
@@ -16,16 +17,19 @@ public class KeyItemController : MonoBehaviour
     private void Start()
     {
         
-        if (redDoor)
+        if (redDoor || masterDoor)
         {
            doorObject = GetComponent<TriggerDoorControllerForLockedDoor>();
         }
+
         
+
+
     }
 
     public void ObjectInteraction()
     {
-        if (redDoor)
+        if (redDoor || masterDoor)
         {
             doorObject.PlayAnimation();
             

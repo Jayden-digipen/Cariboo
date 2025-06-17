@@ -44,8 +44,12 @@ public class FittingPuzzleRaycast : MonoBehaviour
                 if (Input.GetKeyDown(openDoorKey))
                 {
                     Debug.Log("Work");
-                    fitPuzzleReplace.ShapeCheck();
-                    
+                    FitPuzzleReplace fitPuzzleReplace = hit.collider.GetComponent<FitPuzzleReplace>();
+                    if (fitPuzzleReplace != null)
+                    {
+                        fitPuzzleReplace.ShapeCheck();
+                    }
+
                 }
             }
 
@@ -63,7 +67,11 @@ public class FittingPuzzleRaycast : MonoBehaviour
                 if (Input.GetKeyDown(openDoorKey))
                 {
                     Debug.Log("Work");
-                    fitPuzzleReplace.ShapeCheck();
+                    FitPuzzleReplace fitPuzzleReplace = hit.collider.GetComponent<FitPuzzleReplace>();
+                    if (fitPuzzleReplace != null)
+                    {
+                        fitPuzzleReplace.ShapeCheck();
+                    }
 
                 }
             }
@@ -82,7 +90,11 @@ public class FittingPuzzleRaycast : MonoBehaviour
                 if (Input.GetKeyDown(openDoorKey))
                 {
                     Debug.Log("Work");
-                    fitPuzzleReplace.ShapeCheck();
+                    FitPuzzleReplace fitPuzzleReplace = hit.collider.GetComponent<FitPuzzleReplace>();
+                    if (fitPuzzleReplace != null)
+                    {
+                        fitPuzzleReplace.ShapeCheck();
+                    }
                 }
             }
 
@@ -100,7 +112,11 @@ public class FittingPuzzleRaycast : MonoBehaviour
                 if (Input.GetKeyDown(openDoorKey))
                 {
                     Debug.Log("Work");
-                    fitPuzzleReplace.ShapeCheck();
+                    FitPuzzleReplace fitPuzzleReplace = hit.collider.GetComponent<FitPuzzleReplace>();
+                    if (fitPuzzleReplace != null)
+                    {
+                        fitPuzzleReplace.ShapeCheck();
+                    }
                 }
             }
         }

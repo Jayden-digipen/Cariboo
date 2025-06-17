@@ -27,7 +27,7 @@ TagManager:
   - isGrounded
   - isPlayer
   - Interact
-  - 
+  - Wall
   - 
   - 
   - 

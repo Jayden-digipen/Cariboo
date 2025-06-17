@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,6 +10,7 @@ using Random = UnityEngine.Random;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float subtractHealth;
+    [SerializeField] float minSafeDistance;
     public NavMeshAgent agent;
     public Transform player;
     Vector3 startingPosition;
@@ -67,10 +69,10 @@ public class EnemyMovement : MonoBehaviour
             ChasePlayer();
         }
 
-        //if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
-        //{
-            //return;
-        //}
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
+        {
+            return;
+        }
 
         else if (playerSightRange && playerAttackRange && player.CompareTag("Player") == true){
             AttackPlayer();
@@ -133,11 +135,14 @@ public class EnemyMovement : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            //Attack code here, implement later when there is a health script
+           
             agent.SetDestination(transform.position);
+
             playerCameraScript.LookAtEnemy();
             playerHealth = FindObjectOfType<PlayerHealth>();
             playerHealth.TakeDamage(subtractHealth);
+            
+            
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -158,7 +163,33 @@ public class EnemyMovement : MonoBehaviour
 
     public void EnemyBackToStart()
     {
-        transform.position = startingPosition;
+        Vector3 targetPosition;
+
+        float distance = Vector3.Distance(startingPosition, player.position);
+
+        if (distance < minSafeDistance)
+        {
+   
+            Vector3 directionAway = (startingPosition - player.position).normalized;
+            targetPosition = player.position + directionAway * minSafeDistance;
+        }
+        else
+        {
+            targetPosition = startingPosition;
+        }
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPosition, out hit, 2f, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            Debug.Log("good");
+        }
+        else
+        {
+         
+            transform.position = startingPosition;
+            Debug.Log("og");
+        }
     }
 
 }

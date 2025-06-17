@@ -167,7 +167,8 @@ public class PlayerCamera : MonoBehaviour
 
         playerMovement.enabled = false;
         enemyMovement.EnemyBackToStart();
-        enemyMovement.enabled = false;
+        StartCoroutine(DisableEnemyMovement());
+       
         headbob.enabled = false;
         enemy.SetActive(false);
 
@@ -189,6 +190,15 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    IEnumerator DisableEnemyMovement()
+    {
+        yield return new WaitForSeconds(1.0f);  
+        if (enemyMovement != null)
+        {
+            enemyMovement.enabled = false;
+        }
+            
+    }
 
     IEnumerator LookAt()
     {

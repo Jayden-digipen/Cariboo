@@ -714,9 +714,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   textObject: {fileID: 2195911721158544777}
   answer: 392
-  button: {fileID: 0}
-  correct: {fileID: 0}
-  wrong: {fileID: 0}
   animate: 1
 --- !u!1 &1453819670167303051
 GameObject:
@@ -1995,7 +1992,7 @@ Transform:
   - {fileID: 3813634905882130660}
   - {fileID: 1454645833673258497}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!65 &6027023537942411732
 BoxCollider:

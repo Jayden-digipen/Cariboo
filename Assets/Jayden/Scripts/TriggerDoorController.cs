@@ -22,7 +22,9 @@ public class TriggerDoorController : MonoBehaviour
 
     private bool doorIsOpen = false;
     bool isInteracting = false;
-    
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip openDoor;
+    [SerializeField] AudioClip closeDoor;
 
 
     private void Start()
@@ -55,14 +57,14 @@ public class TriggerDoorController : MonoBehaviour
         if (!doorIsOpen)
         {
             myDoor.Play(doorOpen, 0, 0.0f);
-            
+            audioSource.PlayOneShot(openDoor);
             doorIsOpen = true;
             
         }
         else
         {
             myDoor.Play(doorClose, 0, 0.0f);
-           
+            audioSource.PlayOneShot(closeDoor);
             doorIsOpen = false;
         }
     }

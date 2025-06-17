@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Anoop/Scenes/Instruction Scene.unity
     guid: 7616cb54db7ca9c438edc4c9ffc0ae27
+  - enabled: 1
+    path: Assets/Anoop/Scenes/You Died Scene.unity
+    guid: f9e16984f464b9d45a7fcc302988d87a
   m_configObjects: {}

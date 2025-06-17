@@ -5,11 +5,12 @@ using UnityEngine;
 public class CheckWhichShape : MonoBehaviour
 {
     [SerializeField] private ShapeInventory shapeInventory = null;
+    SetPuzzlesActive SetPuzzlesActive;
   
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetPuzzlesActive = FindObjectOfType<SetPuzzlesActive>();
     }
 
     void Update()
@@ -19,6 +20,11 @@ public class CheckWhichShape : MonoBehaviour
 
     public void GetSelectedItemKey()
     {
+        shapeInventory.hasCircleShape = false;
+        shapeInventory.hasSquareShape = false;
+        shapeInventory.hasTriangleShape = false;
+        shapeInventory.hasStarShape = false;
+
         if ((InventoryManager.instance != null && InventoryManager.instance.selectedSlot != -1))
         {
             Item item = InventoryManager.instance.GetSelectedItem(false);
@@ -27,7 +33,13 @@ public class CheckWhichShape : MonoBehaviour
             {
                 shapeInventory.hasCircleShape = true;
 
-               
+                if (SetPuzzlesActive.isCircleFiled)
+                {
+                    InventoryManager.instance.GetSelectedItem(true);
+                }
+                
+
+
 
             }
 
@@ -35,6 +47,11 @@ public class CheckWhichShape : MonoBehaviour
             {
                 shapeInventory.hasSquareShape = true;
 
+                if (SetPuzzlesActive.isSquareFilled)
+                {
+                    InventoryManager.instance.GetSelectedItem(true);
+                }
+                
 
 
             }
@@ -43,6 +60,11 @@ public class CheckWhichShape : MonoBehaviour
             {
                 shapeInventory.hasTriangleShape = true;
 
+                if (SetPuzzlesActive.isTriangleFilled)
+                {
+                    InventoryManager.instance.GetSelectedItem(true);
+                }
+                
 
 
             }
@@ -51,8 +73,12 @@ public class CheckWhichShape : MonoBehaviour
             if (item != null && item.type == ItemType.Star)
             {
                 shapeInventory.hasStarShape = true;
+                
 
-
+                if (SetPuzzlesActive.isStarFilled)
+                {
+                    InventoryManager.instance.GetSelectedItem(true);
+                }
 
             }
 

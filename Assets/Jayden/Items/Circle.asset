@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33cdf18d8bc42247a954518ce566a2b, type: 3}
   m_Name: Circle
   m_EditorClassIdentifier: 
-  type: 7
+  type: 8
   action: 1
-  stackable: 1
+  stackable: 0
   itemName: 
   image: {fileID: 1944712758, guid: 357826fe1bc86634b8efe0d67e6675c2, type: 3}
